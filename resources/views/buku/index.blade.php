@@ -11,7 +11,7 @@
                 <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">Daftar User</a>
             @endif
             @if(auth()->user()->role == 'peminjam')
-                <a href="{{ route('peminjaman.index') }}" class="btn btn-primary btn-sm">Pinjam Buku</a>
+                <a href="{{ route('peminjaman.create') }}" class="btn btn-primary btn-sm">Pinjam Buku</a>
             @endif
             <hr>
             <div class="card">
