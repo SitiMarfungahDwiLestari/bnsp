@@ -5,8 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             @if(auth()->user()->role == 'admin')
-                <a href="{{ route('penulis.create') }}" class="btn btn-primary btn-sm">Tambah Penulis</a>
+                <a href="{{ route('buku.index') }}" class="btn btn-primary btn-sm">Daftar Buku</a>
                 <a href="{{ route('buku.create') }}" class="btn btn-primary btn-sm">Tambah Buku</a>
+                <a href="{{ route('peminjaman.index') }}" class="btn btn-primary btn-sm">Daftar Peminjam</a>
+                <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">Daftar User</a>
             @endif
             @if(auth()->user()->role == 'peminjam')
                 <a href="{{ route('peminjaman.index') }}" class="btn btn-primary btn-sm">Pinjam Buku</a>

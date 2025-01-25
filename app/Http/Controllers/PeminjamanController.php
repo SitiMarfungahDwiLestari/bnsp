@@ -12,9 +12,15 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjaman = Peminjaman::with(['user', 'buku'])
-            ->where('user_id', auth()->id())
-            ->get();
+        // Jika admin, tampilkan semua data
+        if(auth()->user()->role == 'admin') {
+            $peminjaman = Peminjaman::with(['user', 'buku'])->get();
+        } else {
+            // Jika peminjam, tampilkan data miliknya saja
+            $peminjaman = Peminjaman::with(['user', 'buku'])
+                ->where('user_id', auth()->id())
+                ->get();
+        }
         return view('peminjaman.index', compact('peminjaman'));
     }
 
@@ -56,30 +62,16 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::findOrFail($id);
 
-        if($peminjaman->user_id != auth()->id()) {
-            return back()->with('error', 'Anda tidak memiliki akses');
-        }
-
+        // Update status peminjaman
         $peminjaman->update([
             'status' => 'dikembalikan'
         ]);
 
+        // Increment stok buku
         $peminjaman->buku->increment('stok');
 
         return back()->with('success', 'Buku berhasil dikembalikan');
     }
-
-    // public function cetak($id)
-    // {
-    //     $peminjaman = Peminjaman::find($id);
-
-    //     if (request()->has('download')) {
-    //         $pdf = PDF::loadView('peminjaman.cetak', ['peminjaman'=>$peminjaman]);
-    //         return $pdf->download('peminjaman.pdf');
-    //     }
-
-    //     return view('peminjaman.cetak', compact('peminjaman'));
-    // }
 
     public function cetak($id)
     {
