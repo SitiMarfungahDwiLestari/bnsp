@@ -12,7 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(PenulisSeeder::class);
+        $this->call([
+            PenulisSeeder::class,
+            BukuSeeder::class,
+            AuthSeeder::class
+        ]);
 
 
         // \App\Models\User::factory(10)->create();

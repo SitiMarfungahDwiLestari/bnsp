@@ -14,3 +14,7 @@ Route::resource('/buku', BukuController::class);
 Route::get('/registrasi/cetak/{id}', [RegistrasiController::class, 'cetak'])->name('registrasi.cetak');
 Route::get('/registrasi/cetak/{id}/download', [RegistrasiController::class, 'cetak'])->name('registrasi.cetak.download');
 Route::resource('registrasi', RegistrasiController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

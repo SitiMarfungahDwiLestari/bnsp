@@ -1,46 +1,80 @@
-<!-- resources/views/buku/edit.blade.php -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Buku</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Edit Buku</h5>
+@extends('layouts.app')
 
-                <form action="{{ route('buku.update', $buku->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Edit Buku</div>
 
-                    <div class="mb-3">
-                        <label>Penulis</label>
-                        <select name="penulis_id" class="form-control" required>
-                            @foreach($penulis as $p)
-                                <option value="{{ $p->id }}" {{ $buku->penulis_id == $p->id ? 'selected' : '' }}>
-                                    {{ $p->nama }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                    <div class="mb-3">
-                        <label>Judul</label>
-                        <input type="text" class="form-control" name="judul" value="{{ $buku->judul }}" required>
-                    </div>
+                    <form action="{{ route('buku.update', $buku->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-                    <div class="mb-3">
-                        <label>Tanggal Terbit</label>
-                        <input type="date" class="form-control" name="published_date" value="{{ $buku->published_date }}" required>
-                    </div>
+                        <div class="mb-3">
+                            <label class="form-label">Judul Buku</label>
+                            <input type="text" class="form-control @error('judul') is-invalid @enderror"
+                                   name="judul" value="{{ old('judul', $buku->judul) }}" required>
+                            @error('judul')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
-                </form>
+                        <div class="mb-3">
+                            <label class="form-label">Penulis</label>
+                            <input type="text" class="form-control @error('penulis') is-invalid @enderror"
+                                   name="penulis" value="{{ old('penulis', $buku->penulis) }}" required>
+                            @error('penulis')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Penerbit</label>
+                            <input type="text" class="form-control @error('penerbit') is-invalid @enderror"
+                                   name="penerbit" value="{{ old('penerbit', $buku->penerbit) }}" required>
+                            @error('penerbit')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tahun Terbit</label>
+                            <input type="text" class="form-control @error('tahun_terbit') is-invalid @enderror"
+                                   name="tahun_terbit" value="{{ old('tahun_terbit', $buku->tahun_terbit) }}" required>
+                            @error('tahun_terbit')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Stok</label>
+                            <input type="number" class="form-control @error('stok') is-invalid @enderror"
+                                   name="stok" value="{{ old('stok', $buku->stok) }}" required>
+                            @error('stok')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+@endsection

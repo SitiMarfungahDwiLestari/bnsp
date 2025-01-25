@@ -15,23 +15,48 @@
                <form action="{{ route('buku.store') }}" method="POST">
                    @csrf
                    <div class="mb-3">
-                       <label class="form-label">Penulis</label>
-                       <select name="penulis_id" class="form-control" required>
-                           <option value="">Pilih Penulis</option>
-                           @foreach($penulis as $p)
-                               <option value="{{ $p->id }}">{{ $p->nama }}</option>
-                           @endforeach
-                       </select>
-                   </div>
-
-                   <div class="mb-3">
                        <label class="form-label">Judul Buku</label>
-                       <input type="text" class="form-control" name="judul" required>
+                       <input type="text" class="form-control @error('judul') is-invalid @enderror"
+                              name="judul" value="{{ old('judul') }}" required>
+                       @error('judul')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
                    </div>
 
                    <div class="mb-3">
-                       <label class="form-label">Tanggal Terbit</label>
-                       <input type="date" class="form-control" name="published_date" required>
+                       <label class="form-label">Penulis</label>
+                       <input type="text" class="form-control @error('penulis') is-invalid @enderror"
+                              name="penulis" value="{{ old('penulis') }}" required>
+                       @error('penulis')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
+                   </div>
+
+                   <div class="mb-3">
+                       <label class="form-label">Penerbit</label>
+                       <input type="text" class="form-control @error('penerbit') is-invalid @enderror"
+                              name="penerbit" value="{{ old('penerbit') }}" required>
+                       @error('penerbit')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
+                   </div>
+
+                   <div class="mb-3">
+                       <label class="form-label">Tahun Terbit</label>
+                       <input type="text" class="form-control @error('tahun_terbit') is-invalid @enderror"
+                              name="tahun_terbit" value="{{ old('tahun_terbit') }}" required>
+                       @error('tahun_terbit')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
+                   </div>
+
+                   <div class="mb-3">
+                       <label class="form-label">Stok</label>
+                       <input type="number" class="form-control @error('stok') is-invalid @enderror"
+                              name="stok" value="{{ old('stok') }}" required>
+                       @error('stok')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
                    </div>
 
                    <button type="submit" class="btn btn-primary">Simpan</button>

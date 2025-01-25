@@ -8,24 +8,29 @@ class BukuController extends Controller
 {
     public function index()
     {
-        $data = Buku::with('penulis')->get();
-        return view('buku.index', compact('data'));
+        $bukus = Buku::all();
+        return view('buku.index', compact('bukus'));
     }
 
     public function create()
     {
-        $penulis = Penulis::all();
-        return view('buku.create', compact('penulis'));
+        return view('buku.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        Buku::create(request()->validate([
-            'penulis_id' => 'required',
+        $request->validate([
             'judul' => 'required',
-            'published_date' => 'required|date'
-        ]));
-        return redirect('/buku');
+            'penulis' => 'required',
+            'penerbit' => 'required',
+            'tahun_terbit' => 'required',
+            'stok' => 'required|numeric|min:0'
+        ]);
+
+        Buku::create($request->all());
+
+        return redirect()->route('buku.index')
+            ->with('success', 'Buku berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -35,12 +40,21 @@ class BukuController extends Controller
         return view('buku.edit', compact('buku', 'penulis'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $buku = Buku::find($id);
-        $buku->update($request->all());
-        return redirect('/buku');
-    }
+    public function update(Request $request, Buku $buku)
+{
+    $request->validate([
+        'judul' => 'required',
+        'penulis' => 'required',
+        'penerbit' => 'required',
+        'tahun_terbit' => 'required',
+        'stok' => 'required|numeric|min:0'
+    ]);
+
+    $buku->update($request->all());
+
+    return redirect()->route('buku.index')
+        ->with('success', 'Buku berhasil diperbarui!');
+}
 
     public function destroy($id)
     {

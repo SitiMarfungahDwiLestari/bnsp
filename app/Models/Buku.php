@@ -5,14 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// app/Models/Buku.php
 class Buku extends Model
 {
-    protected $table = 'buku';  // Tambahkan ini
-    protected $fillable = ['penulis_id', 'judul', 'published_date'];
+    use HasFactory;
 
-    public function penulis()
-    {
-        return $this->belongsTo(Penulis::class);
-    }
+    protected $table = 'bukus';
+
+    protected $fillable = [
+        'judul',
+        'penulis',
+        'penerbit',
+        'tahun_terbit',
+        'stok'
+    ];
+
+    // Relasi dengan peminjaman (jika nanti diperlukan)
+    // public function peminjaman()
+    // {
+    //     return $this->hasMany(Peminjaman::class);
+    // }
 }

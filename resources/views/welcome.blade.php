@@ -24,53 +24,13 @@
             <!-- ...style lainnya... -->
         </head>
 
-        <!-- Ganti nav dengan: -->
-        <nav class="navbar navbar-expand-lg bg-dark">
-            <div class="container-fluid px-4">
-                <a class="navbar-brand text-white" href="/">Laravel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url('/penulis') }}">Data Penulis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url('/buku') }}">Data Buku</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white bg-danger rounded px-3" href="{{ url('/registrasi') }}">Registrasi</a>
-                        </li>
-                    </ul>
 
-                    @if (Route::has('login'))
-                        <ul class="navbar-nav ms-auto">
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ url('/home') }}">Home</a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('login') }}">Login</a>
-                                </li>
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
-                                    </li>
-                                @endif
-                            @endauth
-                        </ul>
-                    @endif
-                </div>
-            </div>
-        </nav>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
 
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                        <a href="{{ url('/buku') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
