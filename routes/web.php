@@ -6,11 +6,10 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::resource('penulis', PenulisController::class);
 Route::resource('/buku', BukuController::class);

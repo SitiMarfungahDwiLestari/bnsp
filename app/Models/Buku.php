@@ -18,10 +18,4 @@ class Buku extends Model
         'tahun_terbit',
         'stok'
     ];
-
-    // Relasi dengan peminjaman (jika nanti diperlukan)
-    // public function peminjaman()
-    // {
-    //     return $this->hasMany(Peminjaman::class);
-    // }
 }

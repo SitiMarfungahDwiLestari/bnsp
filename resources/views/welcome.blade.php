@@ -8,7 +8,7 @@
     <style>
         .hero-section {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                        url('/api/placeholder/1920/600') center/cover no-repeat;
+                    url('{{ asset('images/hero.jpeg') }}') center/cover no-repeat;
             height: 60vh;
             color: white;
             display: flex;
@@ -54,11 +54,6 @@
                             <li class="nav-item">
                                 <a href="{{ route('login') }}" class="nav-link">Login</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a href="{{ route('register') }}" class="nav-link">Register</a>
-                                </li>
-                            @endif
                         @endauth
                     @endif
                 </ul>
@@ -116,18 +111,73 @@
     <!-- Featured Books -->
     <section class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center mb-5">Buku Terpopuler</h2>
+            <h2 class="text-center mb-5">Koleksi Buku Perpustakaan</h2>
             <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="card book-card">
-                        <img src="/api/placeholder/400/500" class="card-img-top book-cover" alt="Book Cover">
+                @foreach($bukus as $buku)
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0">
                         <div class="card-body">
-                            <h5 class="card-title">Laskar Pelangi</h5>
-                            <p class="card-text text-muted">Andrea Hirata</p>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary rounded-pill">Kode: {{ $buku->id }}</span>
+                                <span class="badge bg-{{ $buku->stok > 0 ? 'success' : 'danger' }} rounded-pill">
+                                    Stok: {{ $buku->stok }}
+                                </span>
+                            </div>
+                            <h5 class="card-title text-primary">{{ $buku->judul }}</h5>
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-person"></i> {{ $buku->penulis }}
+                                </small>
+                            </div>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="bi bi-building"></i> Penerbit: {{ $buku->penerbit }}
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar"></i> Tahun Terbit: {{ $buku->tahun_terbit }}
+                                </small>
+                            </p>
+
+                            @auth
+                                @if(auth()->user()->role == 'peminjam' && $buku->stok > 0)
+                                    <div class="mt-3 d-grid gap-2">
+                                        <a href="{{ route('peminjaman.create') }}"
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-bookmark-plus"></i> Pinjam Buku
+                                        </a>
+                                    </div>
+                                @elseif(auth()->user()->role == 'admin')
+                                    <div class="mt-3 d-flex gap-2">
+                                        <a href="{{ route('buku.edit', $buku->id) }}"
+                                           class="btn btn-warning btn-sm flex-grow-1">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                        <form action="{{ route('buku.destroy', $buku->id) }}"
+                                              method="POST" class="flex-grow-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm w-100"
+                                                    onclick="return confirm('Yakin ingin menghapus?')">
+                                                <i class="bi bi-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="mt-3 d-grid">
+                                    <a href="{{ route('login') }}"
+                                       class="btn btn-light btn-sm">
+                                        <i class="bi bi-box-arrow-in-right"></i> Login untuk Meminjam
+                                    </a>
+                                </div>
+                            @endauth
                         </div>
                     </div>
                 </div>
-                <!-- Tambahkan card buku lainnya -->
+                @endforeach
             </div>
         </div>
     </section>
@@ -135,7 +185,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
-            <div class="row"> 
+            <div class="row">
                 <div class="col-md-6">
                     <h5>Perpustakaan Digital</h5>
                     <p>Menyediakan akses mudah ke dunia literasi digital.</p>
