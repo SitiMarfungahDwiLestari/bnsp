@@ -71,8 +71,12 @@
                                     <div class="d-flex gap-2">
                                         @if(auth()->user()->role == 'peminjam')
                                             <a href="{{ route('peminjaman.cetak', $p->id) }}"
-                                            target="_blank"
-                                            class="btn btn-info btn-sm">Print</a>
+                                               target="_blank"
+                                               class="btn btn-info btn-sm">Print</a>
+                                            @if($p->status == 'dipinjam')
+                                                <a href="{{ route('peminjaman.edit', $p->id) }}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                            @endif
                                         @endif
                                         @if(auth()->user()->role == 'admin' && $p->status == 'dipinjam')
                                             <form action="{{ route('peminjaman.kembalikan', $p->id) }}" method="POST">

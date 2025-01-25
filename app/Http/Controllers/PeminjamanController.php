@@ -80,4 +80,49 @@ class PeminjamanController extends Controller
 
         return view('peminjaman.cetak', compact('peminjaman'));
     }
+
+    public function edit($id)
+{
+    $peminjaman = Peminjaman::findOrFail($id);
+
+    // Cek apakah peminjaman milik user yang login
+    if($peminjaman->user_id != auth()->id()) {
+        return back()->with('error', 'Anda tidak memiliki akses');
+    }
+
+    // Cek apakah status masih dipinjam
+    if($peminjaman->status != 'dipinjam') {
+        return back()->with('error', 'Tidak dapat mengedit peminjaman yang sudah dikembalikan');
+    }
+
+    return view('peminjaman.edit', compact('peminjaman'));
+}
+
+public function update(Request $request, $id)
+{
+    $peminjaman = Peminjaman::findOrFail($id);
+
+    // Validasi akses
+    if($peminjaman->user_id != auth()->id()) {
+        return back()->with('error', 'Anda tidak memiliki akses');
+    }
+
+    // Validasi status
+    if($peminjaman->status != 'dipinjam') {
+        return back()->with('error', 'Tidak dapat mengedit peminjaman yang sudah dikembalikan');
+    }
+
+    $request->validate([
+        'tanggal_pinjam' => 'required|date',
+        'tanggal_kembali' => 'required|date|after:tanggal_pinjam'
+    ]);
+
+    $peminjaman->update([
+        'tanggal_pinjam' => $request->tanggal_pinjam,
+        'tanggal_kembali' => $request->tanggal_kembali
+    ]);
+
+    return redirect()->route('peminjaman.index')
+        ->with('success', 'Data peminjaman berhasil diupdate');
+}
 }
