@@ -46,6 +46,7 @@
                     </div>
                     <div class="card-footer text-center no-print">
                          <button onclick="window.print()" class="btn btn-primary btn-lg">Cetak Kartu</button>
+                         <a href="{{ route('peminjaman.cetak', ['id' => $peminjaman->id, 'download' => 'pdf']) }}" class="btn btn-success btn-lg">Download PDF</a>
                     </div>
                 </div>
             </div>
