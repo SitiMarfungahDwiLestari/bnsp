@@ -37,7 +37,7 @@
                                     <a class="nav-link" href="{{ route('buku.create') }}">Tambah Buku</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('peminjaman.index') }}">Daftar Peminjam</a>
+                                    <a class="nav-link" href="{{ route('peminjaman.index') }}">Daftar Transaksi</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('users.index') }}">Daftar User</a>

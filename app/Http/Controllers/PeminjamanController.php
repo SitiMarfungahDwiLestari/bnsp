@@ -75,13 +75,14 @@ class PeminjamanController extends Controller
 
     public function cetak($id)
     {
-        $peminjaman = Peminjaman::find($id);
-        if (request()->has('download')) {
-            $pdf = PDF::loadView('peminjaman.cetak', ['peminjaman'=>$peminjaman]);
-            return $pdf->download('peminjamanbuku.pdf');
-        }
+        $peminjaman = Peminjaman::with(['user', 'buku'])->findOrFail($id);
 
-        return view('peminjaman.cetak', compact('peminjaman'));
+    if(request()->has('download')) {
+        $pdf = PDF::loadView('peminjaman.pdf', compact('peminjaman'));
+        return $pdf->download('bukti-peminjaman-' . $peminjaman->id . '.pdf');
+    }
+
+    return view('peminjaman.cetak', compact('peminjaman'));
     }
 
     public function edit($id)

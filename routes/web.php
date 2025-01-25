@@ -16,7 +16,7 @@ Route::resource('penulis', PenulisController::class);
 Route::resource('/buku', BukuController::class);
 Route::get('/peminjaman/cetak/{id}', [PeminjamanController::class, 'cetak'])->name('peminjaman.cetak');
 Route::get('/peminjaman/cetak/{id}/download', [PeminjamanController::class, 'cetak'])->name('peminjaman.cetak.download');
-Route::resource('registrasi', RegistrasiController::class);
+
 
 Auth::routes();
 
