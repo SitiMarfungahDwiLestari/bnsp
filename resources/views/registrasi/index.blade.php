@@ -10,46 +10,6 @@
     crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
-<nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand text-white" href="/">Laravel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/penulis') }}">Data Penulis</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ url('/buku') }}">Data Buku</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white bg-danger rounded px-3" href="{{ url('/registrasi') }}">Registrasi</a>
-                </li>
-            </ul>
-
-            @if (Route::has('login'))
-                <ul class="navbar-nav ms-auto">
-                    @auth
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url('/home') }}">Home</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('login') }}">Login</a>
-                        </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
-                            </li>
-                        @endif
-                    @endauth
-                </ul>
-            @endif
-        </div>
-    </div>
-</nav>
 <body>
     <div class="container">
         <h1>Registrasi Peminjaman Buku</h1>

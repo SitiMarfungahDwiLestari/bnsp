@@ -40,15 +40,15 @@ class RegistrasiController extends Controller
         return redirect('/registrasi/cetak/'.$id_pendaftaran)->with('pesan', 'Pendaftaran berhasil');
     }
 
-    public function cetak($id)
-    {
-        $registrasi = Registrasi::find($id);
+    // public function cetak($id)
+    // {
+    //     $registrasi = Registrasi::find($id);
 
-        if (request()->has('download')) {
-            $pdf = PDF::loadView('registrasi.cetak', ['registrasi'=>$registrasi]);
-            return $pdf->download('karturegistrasi.pdf');
-        }
+    //     if (request()->has('download')) {
+    //         $pdf = PDF::loadView('registrasi.cetak', ['registrasi'=>$registrasi]);
+    //         return $pdf->download('karturegistrasi.pdf');
+    //     }
 
-        return view('registrasi.cetak', compact('registrasi'));
-    }
+    //     return view('registrasi.cetak', compact('registrasi'));
+    // }
 }

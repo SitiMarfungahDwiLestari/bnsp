@@ -8,6 +8,9 @@
                 <a href="{{ route('penulis.create') }}" class="btn btn-primary btn-sm">Tambah Penulis</a>
                 <a href="{{ route('buku.create') }}" class="btn btn-primary btn-sm">Tambah Buku</a>
             @endif
+            @if(auth()->user()->role == 'peminjam')
+                <a href="{{ route('peminjaman.index') }}" class="btn btn-primary btn-sm">Pinjam Buku</a>
+            @endif
             <hr>
             <div class="card">
                 <div class="card-header">Data Buku Perpustakaan</div>
