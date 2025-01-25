@@ -16,16 +16,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @if(auth()->user()->role == 'admin')
-                <a href="{{ route('buku.index') }}" class="btn btn-primary btn-sm">Daftar Buku</a>
-                <a href="{{ route('buku.create') }}" class="btn btn-primary btn-sm">Tambah Buku</a>
-                <a href="{{ route('peminjaman.index') }}" class="btn btn-primary btn-sm">Daftar Peminjam</a>
-                <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">Daftar User</a>
-            @endif
-            @if(auth()->user()->role == 'peminjam')
-                <a href="{{ route('peminjaman.create') }}" class="btn btn-primary btn-sm">Pinjam Buku</a>
-            @endif
-            <hr>
             <div class="card">
                 <div class="card-header">
                     {{ auth()->user()->role == 'admin' ? 'Daftar Semua Peminjaman' : 'Riwayat Peminjaman' }}
